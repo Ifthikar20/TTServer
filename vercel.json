@@ -1,0 +1,30 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "index.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "/api/$1"
+      },
+      {
+        "src": "/send-email",
+        "dest": "/send-email"
+      },
+      {
+        "src": "/status",
+        "dest": "/status"
+      }
+    ],
+    "env": {
+      "MONGO_URI": "@mongo_uri",
+      "EMAIL_USER": "@email_user",
+      "EMAIL_PASS": "@email_pass",
+      "PORT": "3000"
+    }
+  }
+  
