@@ -36,7 +36,7 @@ app.post('/send-email', async (req, res) => {
 });
 
 // Sample GET endpoint
-app.get('/status', (req, res) => {
+app.get('/', (req, res) => {
   res.status(200).json({ message: 'Success', status: 'OK' });
 });
 
