@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import userRoutes from './routes/userRoutes.js';
 import morgan from 'morgan';
 import { sendEmail } from './utils/emailService.js';
@@ -8,10 +9,14 @@ import { sendEmail } from './utils/emailService.js';
 dotenv.config();
 
 const app = express();
+
 /// combined' is a standard Apache combined log output
 app.use(morgan('combined'));
 // Middleware
 app.use(express.json());
+app.use(cors({
+  origin: "*"
+}));
 
 // User Routes
 app.use('/api/users', userRoutes);
