@@ -25,24 +25,59 @@ app.use('/api/users', userRoutes);
 
 // Example email data
 const sampleData = [
-  { title: "Today's Gainers", description: `
-    <ul>
-      <li><strong>Starbucks Corporation (SBUX):</strong> Up by 24.50%, driven by strong earnings and positive market sentiment.</li>
-      <li><strong>The Estée Lauder Companies Inc. (EL):</strong> Increased by 6.64%, benefiting from positive earnings reports.</li>
-      <li><strong>NVIDIA Corporation (NVDA):</strong> Rose by 6.53%, continuing its strong performance in the tech sector.</li>
-      <li><strong>Intel Corporation (INTC):</strong> Up by 5.73%, buoyed by new product announcements and market recovery.</li>
-      <li><strong>Tesla, Inc. (TSLA):</strong> Gained 5.24%, likely due to strong sales figures and market optimism.</li>
-    </ul>
-  `},
-  { title: "Today's Losers", description: `
-    <ul>
-      <li><strong>Chipotle Mexican Grill, Inc. (CMG):</strong> Dropped by 7.50%, impacted by weaker-than-expected earnings.</li>
-      <li><strong>Baxter International Inc. (BAX):</strong> Fell by 6.55%, facing challenges in its core markets.</li>
-      <li><strong>EQT Corporation (EQT):</strong> Down by 3.44%, possibly due to fluctuations in energy prices.</li>
-      <li><strong>Valero Energy Corporation (VLO):</strong> Decreased by 2.61%, reflecting broader energy sector pressures.</li>
-      <li><strong>Occidental Petroleum Corporation (OXY):</strong> Dropped by 2.58%, amid lower oil prices and market conditions.</li>
-    </ul>
-  `}
+  // { title: "Today's Gainers", description: `
+  //   <ul>
+  //     <li><strong>Starbucks Corporation (SBUX):</strong> Up by 24.50%, driven by strong earnings and positive market sentiment.</li>
+  //     <li><strong>The Estée Lauder Companies Inc. (EL):</strong> Increased by 6.64%, benefiting from positive earnings reports.</li>
+  //     <li><strong>NVIDIA Corporation (NVDA):</strong> Rose by 6.53%, continuing its strong performance in the tech sector.</li>
+  //     <li><strong>Intel Corporation (INTC):</strong> Up by 5.73%, buoyed by new product announcements and market recovery.</li>
+  //     <li><strong>Tesla, Inc. (TSLA):</strong> Gained 5.24%, likely due to strong sales figures and market optimism.</li>
+  //   </ul>
+  // `},
+  // { title: "Today's Losers", description: `
+  //   <ul>
+  //     <li><strong>Chipotle Mexican Grill, Inc. (CMG):</strong> Dropped by 7.50%, impacted by weaker-than-expected earnings.</li>
+  //     <li><strong>Baxter International Inc. (BAX):</strong> Fell by 6.55%, facing challenges in its core markets.</li>
+  //     <li><strong>EQT Corporation (EQT):</strong> Down by 3.44%, possibly due to fluctuations in energy prices.</li>
+  //     <li><strong>Valero Energy Corporation (VLO):</strong> Decreased by 2.61%, reflecting broader energy sector pressures.</li>
+  //     <li><strong>Occidental Petroleum Corporation (OXY):</strong> Dropped by 2.58%, amid lower oil prices and market conditions.</li>
+  //   </ul>
+  // `}
+
+  {
+    title: "Latest News",
+    description: `
+      <ul>
+        <li>
+          <strong>Ford Stock Update:</strong> 
+          <a href="https://www.globenewswire.com/news-release/2024/09/29/2954791/0/en/FORD-STOCK-UPDATE-Investors-of-Ford-Motor-Company-are-Alerted-of-Imminent-October-7-Deadline-Contact-BFA-Law-if-You-Lost-Money-NYSE-F.html">
+            Investors of Ford Motor Company are Alerted of Imminent October 7 Deadline.
+          </a>
+          <br/>
+          <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR5y1QQgAl_2r4fjsOPX1IbUIC51-4uZnEW3P8ai2m9tLfB2FRiFsvI6vkuYA" alt="Ford Stock Update" style="width: 100px;"/>
+          <br/> Source: GlobeNewswire
+        </li>
+        <li>
+          <strong>Tesla Inc. (NASDAQ: TSLA):</strong> 
+          <a href="https://finance.yahoo.com/news/tesla-inc-nasdaq-tsla-stock-110032718.html">
+            Tesla's Stock Is Going Strong: Is the Market Following Fundamentals?
+          </a>
+          <br/>
+          <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRjjEC4_HWWqZMCazMU7-tgG6dFbubcHsqRZKVvjY8kBHbGuK3yx3SdbymwNyM" alt="Tesla Stock Update" style="width: 100px;"/>
+          <br/> Source: Yahoo Finance
+        </li>
+        <li>
+          <strong>Exclusive | Apple Inc:</strong> 
+          <a href="https://www.wsj.com/tech/apple-no-longer-in-talks-to-join-openai-investment-round-e3be3e66">
+            Apple Is No Longer in Talks to Join OpenAI Investment Round.
+          </a>
+          <br/>
+          <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTK5RML0JC1BRkpc98zZ7JSuTgelfU8EfAV8GP2k8Bk7XxkwF1KJ8_-VjIBvKU" alt="Apple Update" style="width: 100px;"/>
+          <br/> Source: WSJ
+        </li>
+      </ul>
+    `
+  }
 ];
 // Example endpoint to send email
 app.post('/send-email', async (req, res) => {
