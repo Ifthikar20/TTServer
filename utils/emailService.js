@@ -18,9 +18,9 @@ export const generateEmailHTML = (articles, userEmail) => {
   // Generate HTML content for the email
   return `
   <h1>Latest Articles and Market Updates</h1>
-  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+  <div style="display: grid; grid-template-columns: repeat(3, 40%); gap: 10px;">
     ${articles.map(article => `
-      <div style="border: 1px solid #ccc; padding: 10px; box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1); height: 150px; display: flex; flex-direction: column; justify-content: space-between; border-radius: 15px;">
+      <div style="border: 1px solid #ccc; padding: 10px; box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1); height: 150px; width: auto; display: flex; flex-direction: column; justify-content: space-between; border-radius: 15px;">
         <h2 style="font-size: 16px; margin-bottom: 10px;">${article.title}</h2>
         <p style="margin-top: auto;">${article.description}</p>
       </div>
