@@ -5,6 +5,7 @@ import UserModel from '../models/userModel.js';
 import cron from 'node-cron';
 
 dotenv.config();
+
 const transporter = nodemailer.createTransport({
   service: 'gmail', // e.g., Gmail, Outlook
   auth: {
@@ -12,7 +13,6 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS, // Your email password or app-specific password
   },
 });
-
 
 export const generateEmailHTML = (articles, userEmail) => {
   // Generate HTML content for the email
@@ -86,3 +86,16 @@ export const sendBulkEmails = async (subject, articles) => {
     mongoose.connection.close(); // Close the connection after sending emails
   }
 };
+
+// Schedule the cron job to send emails at 4 PM CST daily
+// cron.schedule('0 16 * * *', () => {
+//   const latestArticles = [
+//     { title: 'Article 1', description: 'Description of Article 1' },
+//     { title: 'Article 2', description: 'Description of Article 2' },
+//   ];
+//   console.log('Running the scheduled task at 4 PM CST');
+//   sendBulkEmails('Latest Articles and Market Updates', latestArticles);
+// }, {
+//   scheduled: true,
+//   timezone: "America/Chicago" // CST timezone
+// });
