@@ -159,7 +159,7 @@ app.get('/api/market-trends', (req, res) => {
 //Get the saved news data
 
 // New endpoint to fetch news from the database
-app.get('/api/news', async (req, res) => {
+app.get('/news', async (req, res) => {
   try {
     // Retrieve selected fields from all news in the database
     const newsData = await News.find()
