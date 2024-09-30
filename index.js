@@ -180,6 +180,11 @@ app.get('/', (req, res) => {
   res.status(200).json({ message: 'Success', status: 'OK' });
 });
 
+app.get('/test', (req, res) => {
+  res.status(200).json({ message: 'same as using /', status: 'OK' });
+});
+
+
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URI, {
