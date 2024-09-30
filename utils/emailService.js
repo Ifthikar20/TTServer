@@ -17,7 +17,22 @@ const transporter = nodemailer.createTransport({
 export const generateEmailHTML = (articles, userEmail) => {
   // Generate HTML content for the email
   return `
-  ${articles}
+  <h1>Latest Articles and Market Updates</h1>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+    ${articles.map(article => `
+      <div style="border: 1px solid #ccc; padding: 10px; box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1); border-radius: 15px;">
+        <h2 style="font-size: 16px; margin-bottom: 10px;">${article.article_title}</h2>
+        <img src="${article.article_url}" alt="${article.article_title}" style="width: 100%; height: auto; border-radius: 10px; margin-bottom: 10px;" />
+        <p style="font-size: 14px; color: #555;">Source: ${article.source}</p>
+        <a href="${article.article_url}" style="display: inline-block; padding: 10px 20px; margin-top: 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">Read More</a>
+      </div>
+    `).join('')}
+  </div>
+  <div style="text-align: center; margin-top: 20px;">
+    <button id="surveyButton" style="padding: 10px 20px; font-size: 16px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">
+      Give Survey
+    </button>
+  </div>
   `;
 };
 
