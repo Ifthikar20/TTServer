@@ -7,7 +7,7 @@ import userRoutes from './routes/userRoutes.js';
 import morgan from 'morgan';
 // import { sendEmail } from './utils/emailService.js';
 
-import https from 'https';
+import axios from 'axios';
 import News from './models/newsModel.js'; // Import the News model
 
 dotenv.config();
@@ -124,63 +124,47 @@ export const sendEmail = async (to, subject, articles) => {
 // New endpoint to fetch market trends
 
 // New endpoint to fetch market trends
-app.get('/api/market-trends', (req, res) => {
-  const options = {
-    method: 'GET',
-    hostname: 'real-time-finance-data.p.rapidapi.com',
-    port: null,
-    path: '/market-trends?trend_type=MOST_ACTIVE&country=us&language=en',
-    headers: {
-      'x-rapidapi-key': '3161b74e94msh3003477d0f22c62p1f93d4jsn1f00eaa24400',
-      'x-rapidapi-host': 'real-time-finance-data.p.rapidapi.com'
-    }
-  };
-
-  const apiRequest = https.request(options, function (apiResponse) {
-    const chunks = [];
-
-    apiResponse.on('data', function (chunk) {
-      chunks.push(chunk);
-    });
-
-    apiResponse.on('end', async () => {
-      try {
-        const body = Buffer.concat(chunks);
-        const parsedData = JSON.parse(body.toString());
-
-        // Extract news from the API response
-        const newsArray = parsedData.data.news;
-
-        // Save each news item to the database
-        for (const newsItem of newsArray) {
-          const { article_title, article_url, article_photo_url, source, post_time_utc, stocks_in_news } = newsItem;
-
-          // Create a new news document
-          const newNews = new News({
-            article_title,
-            article_url,
-            article_photo_url,
-            source,
-            post_time_utc: new Date(post_time_utc), // Convert to Date object
-            stocks_in_news,
-          });
-
-          // Save to database
-          await newNews.save();
-        }
-
-        res.status(200).json({ message: 'News data saved successfully!', data: parsedData });
-      } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch and save market trends.', details: error.message });
+app.get('/api/market-trends', async (req, res) => {
+  try {
+    const options = {
+      method: 'GET',
+      url: 'https://real-time-finance-data.p.rapidapi.com/market-trends',
+      params: { trend_type: 'MOST_ACTIVE', country: 'us', language: 'en' },
+      headers: {
+        'x-rapidapi-key': process.env.RAPIDAPI_KEY, // Use environment variable for the API key
+        'x-rapidapi-host': 'real-time-finance-data.p.rapidapi.com'
       }
-    });
-  });
+    };
 
-  apiRequest.on('error', (error) => {
-    res.status(500).json({ error: 'Failed to fetch market trends.', details: error.message });
-  });
+    // Make the HTTP request using axios
+    const response = await axios.request(options);
+    const parsedData = response.data;
 
-  apiRequest.end();
+    // Extract news from the API response
+    const newsArray = parsedData.data.news;
+
+    // Save each news item to the database
+    for (const newsItem of newsArray) {
+      const { article_title, article_url, article_photo_url, source, post_time_utc, stocks_in_news } = newsItem;
+
+      // Create a new news document
+      const newNews = new News({
+        article_title,
+        article_url,
+        article_photo_url,
+        source,
+        post_time_utc: new Date(post_time_utc), // Convert to Date object
+        stocks_in_news,
+      });
+
+      // Save to database
+      await newNews.save();
+    }
+
+    res.status(200).json({ message: 'News data saved successfully!', data: parsedData });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch and save market trends.', details: error.message });
+  }
 });
 
 ///////////////////////////////////////////////////////
